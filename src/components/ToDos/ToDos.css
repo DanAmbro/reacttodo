@@ -1,0 +1,56 @@
+section.toDos {
+    min-height: 78vh;
+    background-image: url('../../images/todolist2.jpg');
+    background-size: cover;
+    background-color: black;
+}
+
+section.toDos article.toDosGallery {
+    padding: 2em 0 4em;
+
+}
+
+article.todosGallery div.singleToDo {
+    background-color: rgba(200, 200, 200, .85);
+    border-radius: 5px;
+    margin: 0;
+    text-align: center;
+    border: 2px solid #212529;
+    padding: 0 0 2em;
+    height: 15em;
+    position: relative;
+
+}
+
+div.singleToDo h3 {
+    background-color: rgb(23, 162, 184);
+    padding: .5em 0;
+    border-bottom: 4px solid #212529;
+    color: #212529;
+}
+
+div.singleToDo p {
+    padding: 1em;
+}
+
+.singleToDo button {
+    position: absolute;
+    font-size: 1.2em;
+    top:.5em;
+    background: none;
+    outline: none;
+    border: 2px solid #000;
+    border-radius: 5px;
+    transition: .25s;
+
+}
+
+.singleToDo button#editLink {
+    left: .5em
+}
+
+button#editLink:hover, button#deleteLink:hover {
+    background-color: rgba(200, 200, 200, .9);
+    color: rgb(144, 45, 20);
+    border-color: rgb(144, 45, 20);
+}
