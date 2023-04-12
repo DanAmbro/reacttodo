@@ -7,17 +7,21 @@ export default function ToDoForm(props) {
     // We need to get categories from the API to populate the dropdown list/select list
     const [categories, setCategories] = useState([]);
 
-    useEffect(() => {
-        axios.get(`https://localhost:7273/api/Categories`).then(response => {
-            setCategories(response.data)
-        })
-    }, []);
+    const getCategories = () => {
+        axios.get(`https://localhost:7273/api/Categories`).then(response => 
+            setCategories(response.data))
+    }
 
     const handleSubmit = (values) => {
         console.log(values)
         if(!props.todo) {
             //If there's no resource object in our props, we are in "create" mode and are limited to this scope
-            const toDoToCreate = values
+            const toDoToCreate = {
+                name: values.name,
+                done: false,
+                categoryId: values.categoryId
+            }
+
 
             axios.post(`https://localhost:7273/api/ToDo`, toDoToCreate).then(() => {
                 props.setShowCreate(false)
@@ -27,9 +31,10 @@ export default function ToDoForm(props) {
         else{
             //Any code in this scope will only execute if we are in "edit" mode
             const toDoToEdit = {
-                toDoId: props.toDo.toDoId,
+                toDoId: props.todo.toDoId,
                 name: values.name,                
-                done: values.done
+                done: props.todo.done,
+                categoryId: values.categoryId
             }
 
             axios.put(`https://localhost:7273/api/ToDos/${props.resource.resourceId}`, toDoToEdit).then(() => {
@@ -38,11 +43,16 @@ export default function ToDoForm(props) {
             })
         }
     }
+
+    useEffect(() => {
+        getCategories()
+    }, [])
+
   return (
     <Formik
         initialValues={{
             name: props.todo ? props.todo.name : '',            
-            done: props.todo ? props.todo.description : '',
+            done: props.todo ? props.todo.done : false,
             categoryId: props.todo ? props.todo.categoryId : ''
         }}
         validationSchema={toDoSchema}
@@ -70,7 +80,7 @@ export default function ToDoForm(props) {
                             </option>
                             {categories.map(cat => 
                                     <option key={cat.categoryId} value={cat.categoryId}>
-                                       {cat.categoryName}     
+                                       {cat.catName}     
                                     </option>
                                 )}    
                         </Field>                                            

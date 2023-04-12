@@ -1,11 +1,18 @@
 import React, { useState } from 'react'
+import axios from 'axios';
 import { useAuth } from '../../contexts/AuthContext'
-import { FaEdit } from 'react-icons/fa'
+import { FaEdit, FaTrashAlt } from 'react-icons/fa'
 import ToDoEdit from './ToDoEdit';
 
 export default function SingleToDo(props) {
   const { currentUser } = useAuth()
   const [showEdit, setShowEdit] = useState();
+
+  const deleteToDo = (id) => {
+    if(window.confirm(`Are you sure you want to delete ${props.toDo.name}?`)) {
+      axios.delete(`https://localhost:7273/api/Categories/${id}`).then(() => props.getToDo())
+    }
+  }
 
   return (
     <div className='singletoDo col-md-5 m-4'>
@@ -13,6 +20,9 @@ export default function SingleToDo(props) {
           <div>
             <button id="editLink" onClick={() => setShowEdit(true)}>
               <FaEdit />
+            </button>
+            <button id="deleteLink" onClick={() => deleteToDo(props.toDo.toDoId)}>
+              <FaTrashAlt />
             </button>
             {showEdit &&
               <ToDoEdit
@@ -24,14 +34,7 @@ export default function SingleToDo(props) {
             }
           </div>
         }
-        <h3>{props.resource.name}</h3>
-        {props.resource.description !== null ?
-            <p>{props.resource.description}</p> :
-            <p>No Description Provided</p> 
-        }
-        <a href={props.resource.url} target='_blank' rel='noreferrer' className='btn btn-info'>
-            Visit {props.resource.linkText}
-        </a>
+        
     </div>
   )
 }

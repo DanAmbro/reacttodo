@@ -1,11 +1,11 @@
-section.toDos {
+section.todos {
     min-height: 78vh;
     background-image: url('../../images/todolist2.jpg');
     background-size: cover;
     background-color: black;
 }
 
-section.toDos article.toDosGallery {
+section.todos article.todosGallery {
     padding: 2em 0 4em;
 
 }
