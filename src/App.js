@@ -3,7 +3,7 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Login from './components/Auth/Login'
-import Todos from './components/Todos/Todos'
+import ToDos from './components/Todos/Todos';
 import Categories from './components/Categories/Categories'
 import Navigation from './components/Navigation'
 import NotFound from './components/NotFound/NotFound'
